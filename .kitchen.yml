@@ -1,0 +1,19 @@
+---
+driver:
+  name: docker
+
+driver_config:
+  use_sudo: false
+  image: ubuntu:14.04
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[nomad::default]
+    attributes:
