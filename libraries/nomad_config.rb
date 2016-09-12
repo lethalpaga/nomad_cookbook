@@ -43,6 +43,7 @@ module NomadCookbook
       attribute(:server, kind_of: [Hash, Mash])
       attribute(:client, kind_of: [Hash, Mash])
       attribute(:chroot_env, kind_of: [Hash, Mash])
+      attribute(:telemetry, kind_of: [Hash, Mash])
 
       # Transforms the resource into a JSON format which matches the
       # Nomad service's configuration format.
