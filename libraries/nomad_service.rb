@@ -76,7 +76,7 @@ module NomadCookbook
       end
 
       def service_options(service)
-        service.command("#{new_resource.program} agent -server -config=#{new_resource.config_path}")
+        service.command("#{new_resource.program} agent -#{node['nomad']['mode']} -config=#{new_resource.config_path}")
         service.directory(new_resource.directory)
         service.user(new_resource.user)
         service.environment(new_resource.environment)
