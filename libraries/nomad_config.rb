@@ -30,7 +30,7 @@ module NomadCookbook
       # @see https:/nomadproject.io/docs/agent/config.html
       attribute(:region, kind_of: String)
       attribute(:datacenter, kind_of: String)
-      attribute(:name, kind_of: String)
+      attribute(:node_name, kind_of: String)
       attribute(:data_dir, kind_of: String)
       attribute(:log_level, kind_of: String)
       attribute(:bind_addr, kind_of: String)
@@ -55,6 +55,11 @@ module NomadCookbook
         config = to_hash.keep_if do |k, _|
           config_keeps.include?(k.to_sym)
         end
+
+        # The :name attribute is reserved by chef, so we store it in
+        # :node_name and reaffect it if needed
+        config[:name] = config[:node_name]
+        config.delete(:name) unless config[:name]
 
         JSON.pretty_generate(config, quirks_mode: true)
       end
