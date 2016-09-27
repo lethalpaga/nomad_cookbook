@@ -58,7 +58,7 @@ module NomadCookbook
 
       def action_enable
         notifying_block do
-          directory data_path do
+          directory nomad_data_path do
             recursive true
             owner new_resource.user
             group new_resource.group

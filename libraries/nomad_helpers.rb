@@ -21,7 +21,7 @@ module NomadCookbook
       ENV['PROGRAMFILES']
     end
 
-    def data_path
+    def nomad_data_path
       windows? ? File.join(program_files, 'nomad', 'data') : File.join('/var/lib', 'nomad')
     end
 
