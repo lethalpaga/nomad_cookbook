@@ -28,32 +28,41 @@ module NomadCookbook
       attribute(:group, kind_of: String, default: 'nomad')
 
       # @see https:/nomadproject.io/docs/agent/config.html
-      attribute(:region, kind_of: String)
-      attribute(:datacenter, kind_of: String)
-      attribute(:node_name, kind_of: String)
-      attribute(:data_dir, kind_of: String)
-      attribute(:log_level, kind_of: String)
-      attribute(:bind_addr, kind_of: String)
-      attribute(:enable_debug, kind_of: String)
-      attribute(:ports, kind_of: [Hash, Mash])
       attribute(:addresses, kind_of: [Hash, Mash])
       attribute(:advertise, kind_of: [Hash, Mash])
-      attribute(:consul, kind_of: [Hash, Mash])
       attribute(:atlas, kind_of: [Hash, Mash])
-      attribute(:server, kind_of: [Hash, Mash])
+      attribute(:bind_addr, kind_of: String)
       attribute(:client, kind_of: [Hash, Mash])
-      attribute(:chroot_env, kind_of: [Hash, Mash])
-      attribute(:telemetry, kind_of: [Hash, Mash])
+      attribute(:consul, kind_of: [Hash, Mash])
+      attribute(:datacenter, kind_of: String)
+      attribute(:data_dir, kind_of: String)
+      attribute(:disable_anonymous_signature, equal_to: [true, false])
+      attribute(:disable_update_check, equal_to: [true, false])
+      attribute(:enable_debug, equal_to: [true, false])
+      attribute(:enable_syslog, equal_to: [true, false])
+      attribute(:http_api_response_headers, kind_of: [Hash, Mash])
+      attribute(:leave_on_interrupt, equal_to: [true, false])
+      attribute(:leave_on_terminate, equal_to: [true, false])
+      attribute(:log_level, kind_of: String)
+      attribute(:node_name, kind_of: String)
+      attribute(:ports, kind_of: [Hash, Mash])
+      attribute(:region, kind_of: String)
+      attribute(:server, kind_of: [Hash, Mash])
+      attribute(:syslog_facility, kind_of: String)
+      attribute(:tls, kind_of: [Hash, Mash])
       attribute(:vault, kind_of: [Hash, Mash])
+      attribute(:telemetry, kind_of: [Hash, Mash])
 
       # Transforms the resource into a JSON format which matches the
       # Nomad service's configuration format.
       # @see https://nomadproject.io/docs/agent/config.html
       def to_json
         # top-level
-        config_keeps = %i{data_dir region datacenter name data_dir log_level
-          bind_addr enable_debug ports addresses advertise consul atlas server
-          client chroot_env telemetry vault
+        config_keeps = %i{ addresses advertise atlas bind_addr client consul
+          datacenter data_dir disable_anonymous_signature disable_update_check
+          enable_debug enable_syslog http_api_response_headers leave_on_interrupt
+          leave_on_terminate log_level node_name ports region server syslog_facility
+          tls vault telemetry
         }
         config = to_hash.keep_if do |k, _|
           config_keeps.include?(k.to_sym)
