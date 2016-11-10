@@ -44,14 +44,17 @@ module NomadCookbook
       attribute(:client, kind_of: [Hash, Mash])
       attribute(:chroot_env, kind_of: [Hash, Mash])
       attribute(:telemetry, kind_of: [Hash, Mash])
+      attribute(:vault, kind_of: [Hash, Mash])
 
       # Transforms the resource into a JSON format which matches the
       # Nomad service's configuration format.
       # @see https://nomadproject.io/docs/agent/config.html
       def to_json
         # top-level
-        config_keeps = %i{data_dir region datacenter name data_dir log_level bind_addr enable_debug ports addresses
-          advertise consul atlas server client chroot_env telemetry}
+        config_keeps = %i{data_dir region datacenter name data_dir log_level
+          bind_addr enable_debug ports addresses advertise consul atlas server
+          client chroot_env telemetry vault
+        }
         config = to_hash.keep_if do |k, _|
           config_keeps.include?(k.to_sym)
         end
