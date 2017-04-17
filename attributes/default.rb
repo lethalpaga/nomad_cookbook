@@ -1,4 +1,4 @@
-default['nomad']['version'] = '0.4.1'
+default['nomad']['version'] = '0.5.6'
 
 default['nomad']['service_name'] = 'nomad'
 default['nomad']['service_user'] = 'nomad'
